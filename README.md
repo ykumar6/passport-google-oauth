@@ -1,7 +1,7 @@
-# Passport-Facebook
+# Passport-Google-OAuth
 
 [Passport](https://github.com/jaredhanson/passport) strategy for authenticating
-with Facebook using the OAuth 2.0 API.
+with Google using the OAuth 2.0 API.
 
 ## Installation
 
@@ -16,9 +16,9 @@ account and OAuth 2.0 tokens.  The strategy requires a `verify` callback, which
 accepts these credentials and calls `done` providing a user, as well as
 `options` specifying a app ID, app secret, and callback URL.
 
-    passport.use(new FacebookStrategy({
-        clientID: FACEBOOK_APP_ID,
-        clientSecret: FACEBOOK_APP_SECRET,
+    passport.use(new GoogleStrategy({
+        clientID: GOOGLE_APP_ID,
+        clientSecret: GOOGLE_APP_SECRET,
         callbackURL: "http://localhost:3000/auth/facebook/callback"
       },
       function(accessToken, refreshToken, profile, done) {
@@ -30,21 +30,21 @@ accepts these credentials and calls `done` providing a user, as well as
 
 #### Authenticate Requests
 
-Use `passport.authenticate()`, specifying the `'facebook'` strategy, to
+Use `passport.authenticate()`, specifying the `'google-oauth'` strategy, to
 authenticate requests.
 
 For example, as route middleware in an [Express](http://expressjs.com/)
 application:
 
-    app.get('/auth/facebook',
-      passport.authenticate('facebook'),
+    app.get('/auth/google',
+      passport.authenticate('google-oauth'),
       function(req, res){
         // The request will be redirected to Facebook for authentication, so
         // this function will not be called.
       });
 
-    app.get('/auth/facebook/callback', 
-      passport.authenticate('facebook', { failureRedirect: '/login' }),
+    app.get('/auth/google/callback', 
+      passport.authenticate('google', { failureRedirect: '/login' }),
       function(req, res) {
         // Successful authentication, redirect home.
         res.redirect('/');
@@ -58,8 +58,8 @@ via the `scope` option to `passport.authenticate()`.
 For example, this authorization requests permission to the user's statuses and
 checkins:
 
-    app.get('/auth/facebook',
-      passport.authenticate('facebook', { scope: ['user_status', 'user_checkins'] }),
+    app.get('/auth/google',
+      passport.authenticate('google-oauth', { scope: ['user_status', 'user_checkins'] }),
       function(req, res){
         // The request will be redirected to Facebook for authentication, with
         // extended permissions.
