@@ -5,13 +5,13 @@ with Google using the OAuth 2.0 API.
 
 ## Installation
 
-    $ npm install passport-facebook
+    $ npm install passport-google
 
 ## Usage
 
 #### Configure Strategy
 
-The Facebook authentication strategy authenticates users using a Facebook
+The Google authentication strategy authenticates users using a Google
 account and OAuth 2.0 tokens.  The strategy requires a `verify` callback, which
 accepts these credentials and calls `done` providing a user, as well as
 `options` specifying a app ID, app secret, and callback URL.
@@ -19,10 +19,10 @@ accepts these credentials and calls `done` providing a user, as well as
     passport.use(new GoogleStrategy({
         clientID: GOOGLE_APP_ID,
         clientSecret: GOOGLE_APP_SECRET,
-        callbackURL: "http://localhost:3000/auth/facebook/callback"
+        callbackURL: "http://localhost:3000/auth/google/callback"
       },
       function(accessToken, refreshToken, profile, done) {
-        User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+        User.findOrCreate({ googleId: profile.id }, function (err, user) {
           return done(err, user);
         });
       }
@@ -39,7 +39,7 @@ application:
     app.get('/auth/google',
       passport.authenticate('google-oauth'),
       function(req, res){
-        // The request will be redirected to Facebook for authentication, so
+        // The request will be redirected to Google for authentication, so
         // this function will not be called.
       });
 
@@ -61,13 +61,13 @@ checkins:
     app.get('/auth/google',
       passport.authenticate('google-oauth', { scope: ['user_status', 'user_checkins'] }),
       function(req, res){
-        // The request will be redirected to Facebook for authentication, with
+        // The request will be redirected to Google for authentication, with
         // extended permissions.
       });
 
 #### Examples
 
-For a complete, working example, refer to the [login example](https://github.com/jaredhanson/passport-facebook/tree/master/examples/login).
+For a complete, working example, refer to the [login example](https://github.com/jaredhanson/passport-google-oauth/tree/master/examples/login).
 
 ## Credits
 
